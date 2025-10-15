@@ -3,44 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delphi reCAPTCHA Test</title>
+  <title>Delphi reCAPTCHA v2 Test</title>
 
-  <!-- Google reCAPTCHA Enterprise -->
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdO2OorAAAAAMXhWusnzWRhD-s8zA6Qjx99LVzb"></script>
+  <!-- Google reCAPTCHA v2 -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-  <h1>Delphi + reCAPTCHA Test</h1>
-  
-  <form id="loginForm">
-    <input type="text" placeholder="Username" required><br><br>
-    <input type="password" placeholder="Password" required><br><br>
-    <button type="submit">Login</button>
-  </form>
+  <h2>Verify you’re human</h2>
+  <div class="g-recaptcha" data-sitekey="6LdO2OorAAAAAMXhWusnzWRhD-s8zA6Qjx99LVzb"></div>
+  <button onclick="sendToken()">Submit</button>
 
-  <div id="status"></div>
+  <p id="result"></p>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault(); // stop default form submission
+    function sendToken() {
+      var token = grecaptcha.getResponse();
+      if (token.length === 0) {
+        document.getElementById("result").innerText = "❌ Please complete the reCAPTCHA!";
+      } else {
+        document.getElementById("result").innerText = "✅ CAPTCHA complete!";
+        // Store token in document for Delphi to read
+        document.title = token;
+      }
+    }
+  </script>
+</body>
+</html>
 
-      // Get reCAPTCHA token
-      grecaptcha.enterprise.ready(async () => {
-        const token = await grecaptcha.enterprise.execute('6LdO2OorAAAAAMXhWusnzWRhD-s8zA6Qjx99LVzb', {action: 'LOGIN'});
-        })
-        .then(res => res.json())
-        .then(data => {
-          if(data.success) {
-            document.getElementById('status').innerText = "✅ User verified!";
-            // Proceed with login logic here
-          } else {
-            document.getElementById('status').innerText = "❌ Failed verification!";
-          }
-        })
-        .catch(err => {
-          document.getElementById('status').innerText = "⚠ Error: " + err;
-        });
-      });
-    });
   </script>
 </body>
 </html>
