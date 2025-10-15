@@ -22,16 +22,11 @@
         document.getElementById("result").innerText = "❌ Please complete the reCAPTCHA!";
       } else {
         document.getElementById("result").innerText = "✅ CAPTCHA complete!";
-        // Store token in document for Delphi to read
+        // Store token in document title so Delphi can read it
         document.title = token;
       }
     }
   </script>
 </body>
 </html>
-
-  </script>
-</body>
-</html>
-
 
