@@ -21,7 +21,7 @@
       if (token.length === 0) {
         document.getElementById("result").innerText = "❌ Please complete the reCAPTCHA!";
       } else {
-        document.getElementById("result").innerText = "✅ CAPTCHA complete!";
+        document.getElementById("result").innerText = "✅ CAPTCHA complete! Please return to the app";
         // Store token in document title so Delphi can read it
         document.title = token;
       }
