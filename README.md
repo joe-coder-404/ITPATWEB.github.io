@@ -17,13 +17,14 @@
 
   <script>
     // Send token to Delphi via redirect
-function sendToken() {
-  var token = grecaptcha.getResponse();
-  if (token.length === 0) {
-    alert("❌ Complete the CAPTCHA!");
-    return;
-  }
-  window.location.href = "captcha_done.html?token=" + token;
+    function sendToken() {
+      var token = grecaptcha.getResponse();
+      if (token.length === 0) {
+        document.getElementById("result").innerText = "❌ Please complete the reCAPTCHA!";
+      } else {
+        document.getElementById("result").innerText = "✅ CAPTCHA complete!";
+        // Redirect to Delphi-handled page with token
+        window.location.href = "captcha_done.html?token=" + token;
       }
     }
 
