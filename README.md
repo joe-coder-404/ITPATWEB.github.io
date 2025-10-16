@@ -24,7 +24,7 @@
       } else {
         document.getElementById("result").innerText = "✅ CAPTCHA complete!";
         // Redirect to Delphi-handled page with token
-        window.location.href = "captcha_done.html?token=" + token;
+       window.location.hash = "token=" + token;
       }
     }
 
