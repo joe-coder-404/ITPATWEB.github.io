@@ -23,8 +23,9 @@
         document.getElementById("result").innerText = "❌ Please complete the reCAPTCHA!";
       } else {
         document.getElementById("result").innerText = "✅ CAPTCHA complete!";
-        // Redirect to Delphi-handled page with token
-        window.location.href = "captcha_done.html?token=" + token;
+        // URL-encode the token to avoid invalid characters
+        var encodedToken = encodeURIComponent(token);
+        window.location.href = "captcha_done.html?token=" + encodedToken;
       }
     }
 
@@ -36,3 +37,4 @@
   </script>
 </body>
 </html>
+
