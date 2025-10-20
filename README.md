@@ -24,17 +24,12 @@
         document.getElementById("result").innerText = "✅ CAPTCHA complete!";
         var encodedToken = encodeURIComponent(token);
 
-        // Load captcha_done.html without redirecting
-        fetch("captcha_done.html?token=" + encodedToken)
-          .then(response => response.text())
-          .then(html => {
-            // Replace current body with the HTML of captcha_done.html
-            document.body.innerHTML = html;
-          })
-          .catch(err => {
-            document.getElementById("result").innerText = "⚠️ Error loading captcha_done.html";
-            console.error(err);
-          });
+        // ✅ Update URL without reloading or redirecting
+        const newUrl = "captcha_done.html?token=" + encodedToken;
+        history.replaceState(null, "", newUrl);
+
+        // (Optional) Let Delphi know you’re done (e.g., through polling or message)
+        console.log("Token saved in URL:", newUrl);
       }
     }
 
@@ -45,3 +40,4 @@
   </script>
 </body>
 </html>
+
