@@ -16,20 +16,28 @@
   <p id="result"></p>
 
   <script>
-    // Send token to Delphi via redirect
     function sendToken() {
       var token = grecaptcha.getResponse();
       if (token.length === 0) {
         document.getElementById("result").innerText = "❌ Please complete the reCAPTCHA!";
       } else {
         document.getElementById("result").innerText = "✅ CAPTCHA complete!";
-        // URL-encode the token to avoid invalid characters
         var encodedToken = encodeURIComponent(token);
-        window.location.href = "captcha_done.html?token=" + encodedToken;
+
+        // Load captcha_done.html without redirecting
+        fetch("captcha_done.html?token=" + encodedToken)
+          .then(response => response.text())
+          .then(html => {
+            // Replace current body with the HTML of captcha_done.html
+            document.body.innerHTML = html;
+          })
+          .catch(err => {
+            document.getElementById("result").innerText = "⚠️ Error loading captcha_done.html";
+            console.error(err);
+          });
       }
     }
 
-    // Function to reset the CAPTCHA (can be called from Delphi)
     function resetCaptcha() {
       grecaptcha.reset();
       document.getElementById("result").innerText = "";
@@ -37,4 +45,3 @@
   </script>
 </body>
 </html>
-
