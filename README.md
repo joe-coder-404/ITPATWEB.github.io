@@ -25,7 +25,7 @@
         document.getElementById("result").innerText = "✅ CAPTCHA complete!";
         // URL-encode the token to avoid invalid characters
         var encodedToken = encodeURIComponent(token);
-        window.location.href = "https://joe-coder-404.github.io/ITPATWEB.github.io/captcha_done.html?token=" + encodedToken;
+        window.location.href = "captcha_done.html?token=" + encodedToken;
       }
     }
 
